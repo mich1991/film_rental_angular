@@ -1,0 +1,44 @@
+.d-grid{
+  display: grid;
+}
+
+.g-header {
+  grid-area: header;
+}
+.g-footer {
+  grid-area: footer;
+}
+.g-content {
+  grid-area: main;
+}
+.g-sidebar {
+  grid-area: sidebar;
+}
+
+.grid-hsmf {
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+  "header header"
+  "sidebar main"
+  "footer footer";
+}
+.grid-hmsf {
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+  "header header"
+  "main sidebar"
+  "footer footer";
+}
+
+
+@for $i from 0 through 12 {
+  .grid-cols-#{$i} {
+    grid-template-columns: repeat(#{$i}, 1fr);
+  }
+  .grid-rows-#{$i} {
+    grid-template-rows: repeat(#{$i}, 1fr);
+  }
+}
+

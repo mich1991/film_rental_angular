@@ -1,0 +1,79 @@
+.w-100{
+  width: 100%;
+}
+.h-100{
+  height: 100%;
+}
+
+$directions: top, right, left, bottom;
+
+@each $direction in $directions {
+  .sticky-#{$direction} {
+    position: sticky;
+    #{$direction}: 0;
+  }
+}
+
+.sticky{
+  position: sticky;
+}
+
+$items: (
+        start: start,
+        end: end,
+        center: center,
+        stretch: stretch
+);
+
+@each $i, $iVal in $items {
+  .i-place-#{$i} {
+    place-items: $iVal;
+  }
+  .s-place-#{$i} {
+    place-self: $iVal;
+  }
+
+  @each $j, $jVal in $items {
+    .i-place-#{$i}-#{$j} {
+      place-items: $iVal $jVal;
+    }
+    .s-place-#{$i}-#{$j} {
+      place-self: $iVal $jVal;
+    }
+  }
+}
+
+$dir: (
+  l: left,
+  t: top,
+  b: bottom,
+  r: right
+);
+
+
+@for $i from 0 through 20 {
+  .gap-#{$i} {
+    gap: #{$i+ 'rem'};
+  }
+  .p-#{$i} {
+    padding: #{$i+ 'rem'};
+  }
+  .m-#{$i} {
+    margin: #{$i+ 'rem'};
+  }
+  @each $j, $jVal in $dir {
+    .p#{$j}-#{$i} {
+      padding-#{$jVal}: #{$i+ 'rem'};
+    }
+    .m#{$j}-#{$i} {
+      margin-#{$jVal}: #{$i+ 'rem'};
+    }
+  }
+}
+
+.apexcharts-menu-item {
+  color: black;
+}
+.apexcharts-tooltip {
+  color: black;
+}

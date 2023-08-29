@@ -1,0 +1,58 @@
+
+.d-flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+//
+//@for $i from 0 through 100 {
+//  .flex-#{$i} {
+//    flex-basis: #{$i+ '%'};
+//  }
+//}
+
+@for $i from 0 through 20 {
+  .flex-#{$i * 5} {
+    flex-basis: #{($i * 5) + '%'};
+  }
+}
+
+@for $i from 0 through 12 {
+  .f-order-#{$i} {
+    order: $i;
+  }
+}
+
+$content: (
+        start: start,
+        end: end,
+        center: center,
+        around: space-around,
+        between: space-between,
+        even: space-evenly,
+        stretch: stretch
+);
+
+@each $i, $iVal in $content {
+  .c-place-#{$i} {
+    place-content: $iVal;
+  }
+  @each $j, $jVal in $content {
+    .c-place-#{$i}-#{$j} {
+      place-content: $iVal $jVal;
+    }
+
+  }
+}
+
