@@ -11,10 +11,12 @@
     <mat-card-content *ngIf="totalMoviesByCategory$ | async as total">
       <apx-chart
         [series]="total.series"
-        [chart]="options.chart"
-        [plotOptions]="options.plotOptions"
-        [dataLabels]="options.dataLabels"
+        [chart]="chartOptions.chart"
+        [plotOptions]="chartOptions.plotOptions"
+        [dataLabels]="chartOptions.dataLabels"
         [xaxis]="total.xaxis"
+        [theme]="total.theme"
+
       >
       </apx-chart>
     </mat-card-content>
@@ -22,19 +24,30 @@
 
   <mat-card>
     <mat-card-header>Total customers per country/store</mat-card-header>
-    <mat-card-content>
-      Apex Chart graph here
-    </mat-card-content>
+    <apx-chart *ngIf="customersPerShop$ | async as totalCustomers"
+               [series]="totalCustomers.series"
+               [chart]="totalCustomers.chart"
+               [plotOptions]="totalCustomers.plotOptions"
+               [dataLabels]="totalCustomers.dataLabels"
+               [labels]="totalCustomers.labels"
+               [legend]="totalCustomers.legend"
+               [fill]="totalCustomers.fill"
+               [xaxis]="totalCustomers.xaxis"
+               [theme]="totalCustomers.theme"
+               class="d-flex"
+    >
+    </apx-chart>
   </mat-card>
 
   <mat-card>
     <mat-card-header>TOP 3 RENTED MOVIES</mat-card-header>
     <apx-chart *ngIf="top3RentedMovies$ | async as topRented"
       [series]="topRented.series"
-      [chart]="options.chart"
-      [plotOptions]="options.plotOptions"
-      [dataLabels]="options.dataLabels"
+      [chart]="chartOptions.chart"
+      [plotOptions]="chartOptions.plotOptions"
+      [dataLabels]="chartOptions.dataLabels"
       [xaxis]="topRented.xaxis"
+      [theme]="topRented.theme"
     >
     </apx-chart>
   </mat-card>

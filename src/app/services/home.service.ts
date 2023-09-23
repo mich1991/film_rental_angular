@@ -20,6 +20,11 @@ interface ITopRented {
   count:number
 }
 
+interface ITotalCustomersPerShop {
+  count: number,
+  address: string,
+}
+
 @Injectable({
   providedIn: 'root',
   useFactory: HttpClient
@@ -37,5 +42,9 @@ export class HomeService {
 
   getTop3RentedMovies(): Observable<ApiResponse<ITopRented[]>> {
     return this.http.get<ApiResponse<ITopRented[]>>(environment.api + "/movies/top_3_rented")
+  }
+
+  getTotalCustomersPerShop(): Observable<ApiResponse<ITotalCustomersPerShop[]>> {
+    return this.http.get<ApiResponse<ITotalCustomersPerShop[]>>(environment.api + "/customers/total_per_shop")
   }
 }

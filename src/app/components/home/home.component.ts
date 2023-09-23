@@ -4,7 +4,7 @@ import {MatCardModule} from "@angular/material/card";
 import {HomeService} from "../../services/home.service";
 import {HttpClientModule} from "@angular/common/http";
 import {MatListModule} from "@angular/material/list";
-import {ChartComponent, NgApexchartsModule} from "ng-apexcharts";
+import {ApexTheme, ChartComponent, ChartType, NgApexchartsModule} from "ng-apexcharts";
 import {ChartOptions} from "../../models/charts";
 import {map, tap} from "rxjs/operators";
 
@@ -16,10 +16,10 @@ import {map, tap} from "rxjs/operators";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   @ViewChild("chart") chart!: ChartComponent;
   homeService = inject(HomeService);
-  actors$ = this.homeService.getActors()
+
   totalMoviesByCategory$ = this.homeService.getTotalMoviesByCategory()
     .pipe(
       map(res => ({
@@ -27,23 +27,63 @@ export class HomeComponent implements OnInit {
           name: 'Amount',
           data: res.data.map(item => item.count)
         }],
+        theme: {
+          mode: "dark"
+        } as ApexTheme,
         xaxis: {categories: res.data.map(item => item.category_name)}
       })),
     );
+
   top3RentedMovies$ = this.homeService.getTop3RentedMovies()
     .pipe(map(res => ({
       series: [{
         name: 'Rented',
         data: res.data.map(item => item.count)
       }],
+      theme: {
+        mode: "dark"
+      } as ApexTheme,
       xaxis: {categories: res.data.map(item => item.title)}
     })))
 
-  options: any = {
+  customersPerShop$ = this.homeService.getTotalCustomersPerShop()
+    .pipe(map(res => ({
+      series: res.data.map(item => item.count),
+      xaxis: {categories: res.data.map(item => item.address)},
+      chart: {
+        width: 380,
+        type: 'donut' as ChartType,
+      },
+      plotOptions: {
+        pie: {
+          startAngle: -90,
+          endAngle: 270
+        }
+      },
+      labels: res.data.map(item => item.address),
+      dataLabels: {
+        enabled: false
+      },
+      fill: {
+        type: 'gradient',
+      },
+      legend: {
+        show:true,
+        formatter: function (val:any, opts:any) {
+          return val + " - " + opts.w.globals.series[opts.seriesIndex]
+        }
+      },
+      theme: {
+        mode: "dark"
+      } as ApexTheme
+    }))
+    )
+
+  chartOptions: any = {
     series: [
       {
-        name: "Funnel Series",
-        data: [1380, 1100, 990, 880, 740, 548, 330, 200],
+        name: "",
+        data: [],
       },
     ],
     chart: {
@@ -68,20 +108,11 @@ export class HomeComponent implements OnInit {
       },
     },
     title: {
-      text: 'Recruitment Funnel',
+      text: '',
       align: 'middle',
     },
     xaxis: {
-      categories: [
-        'Sourced',
-        'Screened',
-        'Assessed',
-        'HR Interview',
-        'Technical',
-        'Verify',
-        'Offered',
-        'Hired',
-      ],
+      categories: [],
     },
     legend: {
       show: true,
@@ -91,6 +122,4 @@ export class HomeComponent implements OnInit {
     }
   };
 
-  ngOnInit() {
-  }
 }
