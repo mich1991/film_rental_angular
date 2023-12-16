@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  isAdmin : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isAdmin : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   constructor() { }
 
   verifyAdmin(login:string, password:string): boolean {
@@ -17,5 +17,9 @@ export class AuthService {
       this.isAdmin.next(false);
       return false
     }
+  }
+
+  getIsAdminObs(): Observable<boolean> {
+    return this.isAdmin.asObservable()
   }
 }
