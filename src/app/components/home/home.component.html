@@ -1,8 +1,17 @@
 <div class="d-grid grid-cols-2 grid-rows-2 gap-1 m-2">
   <mat-card>
     <mat-card-header>Our Stores world wide</mat-card-header>
-    <mat-card-content>
-      Apex Chart graph here
+    <mat-card-content *ngIf="storesPerCountry$ | async as stores">
+      <apx-chart
+        [series]="stores.series"
+        [chart]="stores.chart"
+        [plotOptions]="chartOptions.plotOptions"
+        [dataLabels]="stores.dataLabels"
+        [labels]="stores.labels"
+        [xaxis]="stores.xaxis"
+        [theme]="stores.theme"
+      >
+      </apx-chart>
     </mat-card-content>
   </mat-card>
 
@@ -16,7 +25,6 @@
         [dataLabels]="chartOptions.dataLabels"
         [xaxis]="total.xaxis"
         [theme]="total.theme"
-
       >
       </apx-chart>
     </mat-card-content>
@@ -24,24 +32,26 @@
 
   <mat-card>
     <mat-card-header>Total customers per country/store</mat-card-header>
-    <apx-chart *ngIf="customersPerShop$ | async as totalCustomers"
-               [series]="totalCustomers.series"
-               [chart]="totalCustomers.chart"
-               [plotOptions]="totalCustomers.plotOptions"
-               [dataLabels]="totalCustomers.dataLabels"
-               [labels]="totalCustomers.labels"
-               [legend]="totalCustomers.legend"
-               [fill]="totalCustomers.fill"
-               [xaxis]="totalCustomers.xaxis"
-               [theme]="totalCustomers.theme"
-               class="d-flex"
+    <apx-chart
+      *ngIf="customersPerShop$ | async as totalCustomers"
+      [series]="totalCustomers.series"
+      [chart]="totalCustomers.chart"
+      [plotOptions]="totalCustomers.plotOptions"
+      [dataLabels]="totalCustomers.dataLabels"
+      [labels]="totalCustomers.labels"
+      [legend]="totalCustomers.legend"
+      [fill]="totalCustomers.fill"
+      [xaxis]="totalCustomers.xaxis"
+      [theme]="totalCustomers.theme"
+      class="d-flex"
     >
     </apx-chart>
   </mat-card>
 
   <mat-card>
     <mat-card-header>TOP 3 RENTED MOVIES</mat-card-header>
-    <apx-chart *ngIf="top3RentedMovies$ | async as topRented"
+    <apx-chart
+      *ngIf="top3RentedMovies$ | async as topRented"
       [series]="topRented.series"
       [chart]="chartOptions.chart"
       [plotOptions]="chartOptions.plotOptions"

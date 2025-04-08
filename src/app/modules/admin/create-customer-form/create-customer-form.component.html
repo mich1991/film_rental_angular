@@ -1,0 +1,100 @@
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="d-flex col" style="margin: 1rem">
+    <button mat-raised-button color="primary" type="button" (click)="showToastr()" >toast</button>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Store ID</mat-label>
+        <input matInput type="number" formControlName="store_id" />
+        <mat-error *ngIf="createForm.get('store_id')?.hasError('required') && createForm.get('store_id')?.touched">
+            Store ID is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="first_name" />
+        <mat-error *ngIf="createForm.get('first_name')?.hasError('required') && createForm.get('first_name')?.touched">
+            First Name is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="last_name" />
+        <mat-error *ngIf="createForm.get('last_name')?.hasError('required') && createForm.get('last_name')?.touched">
+            Last Name is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error *ngIf="createForm.get('email')?.hasError('required') && createForm.get('email')?.touched">
+            Email is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="activebool">Active</mat-checkbox>
+
+    <!-- Nested form group for address -->
+    <div formGroupName="address">
+        <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address" />
+            <mat-error *ngIf="createForm.get('address.address')?.hasError('required') && createForm.get('address.address')?.touched">
+                Address is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Address 2</mat-label>
+            <input matInput formControlName="address2" />
+            <mat-error *ngIf="createForm.get('address.address2')?.hasError('required') && createForm.get('address.address2')?.touched">
+                Address 2 is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>District</mat-label>
+            <input matInput formControlName="district" />
+            <mat-error *ngIf="createForm.get('address.district')?.hasError('required') && createForm.get('address.district')?.touched">
+                District is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Postal Code</mat-label>
+            <input matInput formControlName="postal_code" />
+            <mat-error *ngIf="createForm.get('address.postal_code')?.hasError('required') && createForm.get('address.postal_code')?.touched">
+                Postal Code is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" />
+            <mat-error *ngIf="createForm.get('address.city')?.hasError('required') && createForm.get('address.city')?.touched">
+                City is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" />
+            <mat-error *ngIf="createForm.get('address.phone')?.hasError('required') && createForm.get('address.phone')?.touched">
+                Phone is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" />
+            <mat-error *ngIf="createForm.get('address.country')?.hasError('required') && createForm.get('address.country')?.touched">
+                Country is required.
+            </mat-error>
+        </mat-form-field>
+        <!-- Add more address fields as needed -->
+
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="createForm.invalid">Submit</button>
+</form>

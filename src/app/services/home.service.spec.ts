@@ -13,4 +13,10 @@ describe('HomeService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should return actors', () => {
+    service.getActors().subscribe((data) => {
+      expect(data).toBeTruthy();
+    });
+  });
 });
